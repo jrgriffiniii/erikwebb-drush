@@ -46,7 +46,8 @@ class drush(
       '/sbin',
       '/usr/bin',
       '/usr/sbin'
-    ]
+    ],
+    require  => [ Pear::Package['drush'] ]
   }
 
   exec { 'drush.autocomplete.source':
