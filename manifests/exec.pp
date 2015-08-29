@@ -15,6 +15,15 @@
 # [*uri*]
 #   Specify a URI of the Drupal site to use. Defaults to "default".
 #
+# [*force*]
+#   Whether or not to force the Drush command. Defaults to false.
+#
+# [*options*]
+#   An array of options to be passed to the Drush executable. Defaults to [].
+#
+# [*timeout*]
+#   The timeout attribute for the execution of the Drush command. Defaults to 300 (set to 0 for no timeout).
+#
 # === Examples
 #
 # Provide some examples on how to use this type:
@@ -38,6 +47,7 @@ define drush::exec(
   $uri            = nil,
   $force          = false,
   $options        = [],
+  $timeout        = 300,
 ) {
 
   include drush
@@ -60,7 +70,8 @@ define drush::exec(
   exec { "drush-${title}":
     command => "drush ${command} ${root_option} ${uri_option} ${force_option} ${additional_options}",
     path    => [ '/bin', '/usr/bin' ],
-    require => Pear::Package['drush']
+    require => Pear::Package['drush'],
+    timeout => $timeout,
   }
 
 }
